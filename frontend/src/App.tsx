@@ -1,26 +1,58 @@
-import { useState } from 'react'
-import { BrowserRouter as Router,
-Routes,Route , Navigate } from 'react-router-dom'
-import './index.css'
-import Login from './components/Login'
-import Signup from './components/Signup'
-import ListProduct from './components/ListProduct'
+
+import './index.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate
+} from 'react-router-dom';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import ListProduct from './components/ListProduct';
+import Cart from './components/Cart'
+import { RootState } from "./store/AuthStore";
+import { useSelector } from "react-redux";
+
 
 function App() {
-  
+
+
+  const userId = useSelector((state:RootState)=> state.auth.userId)
+  console.log(userId)
 
   return (
- 
     <>
-   
-    <Router>
-      <Routes>
-        <Route path ='/' element={<ListProduct/>} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/signup' element={<Signup/>} />
-      </Routes>
+      <Router>
+        <Routes>
+          <Route
+          path='/login'
+          element={userId ? <Navigate to='/'/> : <Login/>}
+          />
+          <Route
+          path='/signup'
+          element = {userId ? <Navigate to="/"/>:<Signup/>}
+          />
+          <Route
+            path="/"
+            element={ 
+              userId ? (
+                <>
+                <ListProduct/>
+                </>
+              ) : (
 
-    </Router>
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path='/cart'
+            element={
+              <Cart/>
+            }
+          />
+        </Routes>
+      </Router>
     </>
   )
 }

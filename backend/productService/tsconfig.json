@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "jsx": "react"  // Add this line to handle JSX
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"]
+}
